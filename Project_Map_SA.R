@@ -57,3 +57,5 @@ ggplot(freq_40_50, aes(x = as.numeric(year), y = total_pixels / 1000)) +
     y = "Pixel Count (thousands)"
   ) +
   theme_minimal(base_size = 14)
+
+#
