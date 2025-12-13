@@ -4,10 +4,12 @@ library(FedData)
 library(dplyr)
 library(ggplot2)
 library(scales)
+library(sf)
 
 #extract necessary land cover data into one central list
 project_files <- list.files("Z://awiebler/FinalProject/South_Africa_Land_Cover (1)/", 
                             pattern = "\\.tif$", full.names = TRUE)
+natparks <- list.files()
 
 #ensure extents match each other to enable layering
 r_list <- lapply(project_files, rast)
@@ -24,12 +26,6 @@ corrected_r_list <- lapply(r_list,
 
 temp_landuse <- rast(corrected_r_list)
 names(temp_landuse) <- 2015:2019
-
-
-#highlight desired land use classes to visualize changes (40 & 50)
-vals <- sort(unique(values(temp_landuse)))
-cols <- rep("grey85", length(vals))
-cols[vals %in% c(40, 50)] <- "hotpink"
 
 
 #find the frequency of land use codes
@@ -58,4 +54,5 @@ ggplot(freq_40_50, aes(x = as.numeric(year), y = total_pixels / 1000)) +
   ) +
   theme_minimal(base_size = 14)
 
-#
+
+
